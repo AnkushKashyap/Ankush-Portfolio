@@ -965,6 +965,7 @@ body.intro-active {
 .footer-logo-dot {
   width: 8px;
   height: 8px;
+  margin-top: 14px;
   background-color: #ff3b30;
   border-radius: 50%;
   display: inline-block;
