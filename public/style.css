@@ -1,0 +1,1476 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Entire page dark background & smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: clip;
+}
+
+/* Lock scrolling while intro video plays */
+body.intro-active {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
+/* ==========================================
+   1. MANDATORY INTRO VIDEO (NATURAL FIT, NO DISTORTION)
+   ========================================== */
+#intro-loader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1),
+              visibility 0.8s ease;
+}
+
+/* Natural aspect ratio fit - NO stretching or distortion */
+#intro-video {
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+  background-color: #000000;
+}
+
+#intro-loader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ==========================================
+   2. MAIN HERO SECTION & FRAMED PHOTO CARD
+   ========================================== */
+#main-content {
+  width: 100%;
+  background-color: #000000;
+}
+
+/* Centers the framed photo card */
+.hero-frame-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 2.2vw, 32px);
+  background-color: #000000;
+}
+
+/* The Photo Card with Rounded Borders */
+.hero-card {
+  position: relative;
+  width: 100%;
+  max-width: 1540px;
+  height: calc(100vh - clamp(28px, 4.4vw, 64px));
+  min-height: 600px;
+  max-height: 980px;
+  border-radius: clamp(20px, 2.8vw, 36px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 
+              0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================
+   3. PERFECT LOCKSTEP IMAGE LAYERS
+   ========================================== */
+.hero-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+}
+
+/* Layer 1: Background photo */
+.hero-layer--bg {
+  z-index: 1;
+}
+
+/* Layer 1.5: Subtle contrast overlay */
+.hero-layer--overlay {
+  z-index: 2;
+  background: linear-gradient(
+    180deg, 
+    rgba(0, 0, 0, 0.2) 0%, 
+    rgba(0, 0, 0, 0.3) 45%, 
+    rgba(0, 0, 0, 0.5) 100%
+  );
+}
+
+/* Layer 3: Cutout subject (Sandwiched between solid text & outline text) */
+.hero-layer--cutout {
+  z-index: 10;
+}
+
+/* ==========================================
+   4. TYPOGRAPHY LAYERS (SOLID & OUTLINE)
+   ========================================== */
+.hero-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Layer 2: Solid Text (Behind Cutout) */
+.hero-content--solid {
+  z-index: 5;
+  color: #ffffff;
+}
+
+/* Layer 4: Outlined Text (In Front of Cutout - Razor Thin Hollow Outline) */
+.hero-content--outline {
+  z-index: 15;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Ultra-thin hairline outline for titles */
+.hero-content--outline .hero-title {
+  color: transparent !important;
+  -webkit-text-stroke: 0.35px rgba(255, 255, 255, 0.55);
+  text-stroke: 0.35px rgba(255, 255, 255, 0.55);
+  text-shadow: none !important;
+}
+
+.hero-content--outline .hero-title--name {
+  -webkit-text-stroke: 0.3px rgba(255, 255, 255, 0.5);
+  text-stroke: 0.3px rgba(255, 255, 255, 0.5);
+}
+
+/* Ultra-thin hairline outline for byline over subject */
+.hero-content--outline .hero-byline {
+  color: transparent !important;
+  -webkit-text-stroke: 0.22px rgba(255, 255, 255, 0.6);
+  text-stroke: 0.22px rgba(255, 255, 255, 0.6);
+  text-shadow: none !important;
+}
+
+/* Top Nav inside the photo frame */
+.hero-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: clamp(18px, 3vw, 36px) clamp(24px, 4vw, 48px);
+  z-index: 25;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-logo {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.logo-name {
+  font-family: 'Bebas Neue', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.logo-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 14px;
+  background-color: #ff3b30;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.8);
+}
+
+/* Composition Grid */
+.hero-composition {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: clamp(20px, 3.8vw, 48px);
+}
+
+/* Columns */
+.hero-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding-top: clamp(65px, 9vh, 95px);
+  padding-bottom: clamp(12px, 2.2vh, 24px);
+  user-select: none;
+}
+
+.hero-col--left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero-col--right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* ==========================================
+   5. POP-UP FROM BOTTOM (OVERFLOW MASKS)
+   ========================================== */
+.title-mask {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+/* Generous breathing room so the 25px blur text-shadow is NEVER clipped on any edge */
+.title-mask--hello {
+  margin-left: clamp(20px, 4.5vw, 95px);
+  padding-top: 35px;
+  padding-right: 85px;
+  padding-bottom: 45px;
+  padding-left: 0;
+  margin-top: -35px;
+  margin-right: -85px;
+  margin-bottom: -45px;
+}
+
+.title-mask--meet {
+  padding-top: 35px;
+  padding-right: 75px;
+  padding-bottom: 45px;
+  padding-left: 0;
+  margin-top: -35px;
+  margin-right: -75px;
+  margin-bottom: -45px;
+}
+
+.title-mask--name {
+  padding-top: 35px;
+  padding-right: 45px;
+  padding-bottom: 45px;
+  padding-left: 45px;
+  margin-top: -35px;
+  margin-right: -45px;
+  margin-bottom: -45px;
+  margin-left: -45px;
+}
+
+/* Initial state before reveal: hidden pushed down */
+.hero-title {
+  font-family: 'Bebas Neue', 'Impact', sans-serif;
+  font-weight: 900;
+  font-size: clamp(4.5rem, 13.5vw, 12.5rem);
+  line-height: 0.82;
+  color: #ffffff;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+  transform: translateY(135%);
+  opacity: 0;
+  transition: transform 0.88s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.5s ease;
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Popped up state */
+.hero-card.is-revealed .hero-title {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+/* Staggered entrance pop-ups */
+.hero-card.is-revealed .hero-title--hello {
+  transition-delay: 0.08s;
+}
+
+.hero-card.is-revealed .hero-title--meet {
+  transition-delay: 0.22s;
+}
+
+.hero-card.is-revealed .hero-title--name {
+  transition-delay: 0.36s;
+}
+
+/* ==========================================
+   6. FLOATING ANIMATIONS (ONLY AFTER ENTRANCE)
+   ========================================== */
+@keyframes floatHello {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(-0.6deg);
+  }
+}
+
+@keyframes floatMeet {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-11px) rotate(0.6deg);
+  }
+}
+
+@keyframes floatNameBlock {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-13px) rotate(-0.4deg);
+  }
+}
+
+/* Floating starts smoothly only after pop up entrance is finished */
+.hero-card.is-floating .title-mask {
+  overflow: visible;
+}
+
+.hero-card.is-floating .float-hello {
+  animation: floatHello 5.5s ease-in-out infinite;
+}
+
+.hero-card.is-floating .float-meet {
+  animation: floatMeet 6.5s ease-in-out infinite 0.7s;
+}
+
+.hero-card.is-floating .float-name {
+  animation: floatNameBlock 6s ease-in-out infinite 1.2s;
+}
+
+/* Right column byline & ANKUSH */
+.hero-right-spacer {
+  flex: 1;
+}
+
+.hero-name-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: clamp(4px, 1.5vw, 24px);
+  will-change: transform;
+}
+
+/* Typewriter Byline */
+.hero-byline {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.7rem, 1.15vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: clamp(1.5px, 0.25vw, 3px);
+  color: rgba(255, 255, 255, 0.95);
+  text-transform: uppercase;
+  margin-bottom: clamp(6px, 1vw, 12px);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  min-height: 1.4em;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-byline::after {
+  content: '_';
+  opacity: 0;
+  margin-left: 2px;
+}
+
+.hero-card.is-typing .hero-byline::after {
+  opacity: 1;
+  animation: blinkCursor 0.7s infinite;
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* ==========================================
+   7. SECTION 2: MINDSET & PHILOSOPHY (SEAMLESS BLACK PAGE)
+   ========================================== */
+.mindset-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  padding: clamp(80px, 14vh, 160px) clamp(24px, 5vw, 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 20;
+  border-top: none; /* Seamless continuation from hero */
+}
+
+.mindset-container {
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.handwritten-block {
+  font-family: 'Caveat', 'Covered By Your Grace', 'Segoe Print', cursive;
+  font-size: clamp(1.75rem, 2.9vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0.015em;
+  color: #ffffff;
+  transform: rotate(-0.5deg);
+  transform-origin: center left;
+  user-select: text;
+}
+
+.mindset-question {
+  font-size: clamp(2.3rem, 3.8vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: clamp(24px, 3.8vh, 44px);
+  line-height: 1.25;
+}
+
+.mindset-p {
+  margin-bottom: clamp(20px, 3vh, 32px);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.mindset-author {
+  font-family: 'Caveat', 'Covered By Your Grace', 'Segoe Print', cursive;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.78);
+  margin-top: clamp(36px, 5vh, 60px);
+  display: block;
+  text-align: right;
+  padding-right: clamp(10px, 2vw, 24px);
+}
+
+/* ==========================================
+   8. SECTION 3: INTRO & SERVICES (TWO-COLUMN STICKY ROLLER)
+   ========================================== */
+.services-section {
+  width: 100%;
+  min-height: 185vh; /* Ample scroll runway so all words roll through focus smoothly */
+  background-color: #000000;
+  color: #ffffff;
+  padding: clamp(100px, 16vh, 180px) clamp(24px, 5vw, 72px) clamp(40px, 6vh, 80px);
+  position: relative;
+  z-index: 20;
+  border-top: none;
+}
+
+.services-container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: stretch;
+}
+
+/* Left Column: Fixed / Sticky Text Centered on its axis */
+.services-col--left {
+  position: relative;
+  height: 100%;
+  min-height: 100%;
+  padding-top: 0;
+}
+
+.services-sticky-content {
+  position: sticky;
+  top: calc(50vh - 180px);
+  max-width: 520px;
+}
+
+.services-headline {
+  font-family: 'Bebas Neue', 'Space Grotesk', Impact, sans-serif;
+  font-size: clamp(2.4rem, 4.4vw, 4.4rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: 0.5px;
+  color: #ff3b30;
+  text-transform: uppercase;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.services-bio {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: clamp(28px, 4vh, 44px);
+}
+
+.services-cta {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #ff3b30;
+  text-decoration: none;
+  display: inline-block;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.services-cta:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* Right Column: Scroll-Driven Fade & Blur Roller Words */
+.services-col--right {
+  padding-top: 0;
+  padding-bottom: clamp(280px, 52vh, 520px);
+}
+
+.services-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-item {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(3.2rem, 5.8vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: clamp(28px, 4.5vh, 52px);
+  transform-origin: center left;
+  transition: filter 0.18s ease-out, opacity 0.18s ease-out, transform 0.18s ease-out;
+  will-change: filter, opacity, transform;
+  user-select: none;
+}
+
+/* ==========================================
+   9. SECTION 4: PINNED PINBOARD (WORK I'M SUPER PROUD OF.)
+   ========================================== */
+.pinboard-track {
+  width: 100%;
+  height: 380vh; /* Ample scroll runway so cards glide in one by one and settle */
+  background-color: #000000;
+  position: relative;
+  z-index: 20;
+}
+
+.pinboard-sticky-frame {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+/* Center Headline Fixed in Background */
+.pinboard-headline-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  padding: 20px;
+}
+
+.pinboard-headline {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(4rem, 10.5vw, 11rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  color: #ff3b30;
+  text-align: center;
+  text-transform: uppercase;
+  max-width: 1300px;
+  width: 100%;
+}
+
+/* Overlapping Project Cards Collage Stage */
+.pinboard-cards-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Template Card Base Styling — Generously sized for rich collage overlap */
+.pin-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(360px, 36vw, 560px);
+  aspect-ratio: 1 / 1.02;
+  text-decoration: none;
+  display: block;
+  pointer-events: auto;
+  user-select: none;
+  border-radius: 16px;
+  will-change: transform, opacity;
+  transform-origin: center center;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1),
+              box-shadow 0.35s ease,
+              opacity 0.35s ease,
+              filter 0.35s ease;
+}
+
+/* Inner Card Frame & Vintage Red Theme */
+.pin-card-inner {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 30%, #850000 0%, #5c0202 85%, #420101 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: clamp(16px, 1.8vw, 24px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.85);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card 2 has unique monochrome crowd with red glasses aesthetic */
+.pin-card--2 .pin-card-inner {
+  background: radial-gradient(circle at 50% 40%, #1e1e1e 0%, #111111 80%, #080808 100%);
+  border-color: rgba(255, 59, 48, 0.35);
+}
+
+.pin-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+.pin-card-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: lowercase;
+}
+
+/* Media Graphic Placeholder Box */
+.pin-card-media {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 12px 0;
+  z-index: 2;
+}
+
+/* Collage Stickers & Cutout Visuals */
+.pin-art-collage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.pin-cutout-knife {
+  font-size: clamp(3.2rem, 5vw, 4.6rem);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6));
+}
+
+.pin-sticker-box {
+  background: rgba(255, 255, 255, 0.95);
+  color: #000000;
+  padding: 10px 14px;
+  border-radius: 4px;
+  transform: rotate(-3deg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+
+.pin-sticker-text {
+  font-family: ui-monospace, monospace;
+  font-size: clamp(0.75rem, 0.95vw, 0.85rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: #000000;
+  text-transform: lowercase;
+}
+
+.pin-typewriter-text {
+  font-family: ui-monospace, monospace;
+  font-size: clamp(0.8rem, 1vw, 0.92rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: left;
+  width: 100%;
+}
+
+.pin-mini-avatar {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  margin-top: 8px;
+}
+
+.pin-card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+}
+
+.pin-card-title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.pin-card-link-badge {
+  font-family: ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ==========================================
+   HOVER FOCUS INTERACTION:
+   When hovering on any template, it elevates in front of all others,
+   scales up, and dims sibling templates into subtle background focus.
+   ========================================== */
+.pinboard-cards-stage:has(.pin-card:hover) .pin-card:not(:hover) {
+  opacity: 0.38 !important;
+  filter: blur(2px) grayscale(25%);
+}
+
+.pin-card:hover {
+  z-index: 70 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  box-shadow: 0 36px 85px rgba(0, 0, 0, 0.98), 
+              0 0 0 2px rgba(255, 59, 48, 0.8),
+              0 0 35px rgba(255, 59, 48, 0.35) !important;
+}
+
+/* ==========================================
+   10. SECTION 5: BEFORE YOU ASK... (FAQ & PHILOSOPHY)
+   ========================================== */
+.bya-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  padding: clamp(100px, 16vh, 180px) clamp(24px, 5vw, 72px);
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: none;
+}
+
+.bya-container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: clamp(32px, 4.5vw, 72px);
+  align-items: start;
+}
+
+/* Column 1: Massive Stacked Red Headline */
+.bya-col--title {
+  position: sticky;
+  top: 14vh;
+}
+
+.bya-headline {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(4.5rem, 8.8vw, 9.8rem);
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: 0.02em;
+  color: #ff3b30;
+  text-transform: uppercase;
+}
+
+/* Columns 2 & 3: Q&A Stack */
+.bya-col--qa {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(36px, 5.5vh, 60px);
+}
+
+.bya-item {
+  transition: transform 0.25s ease;
+}
+
+.bya-item:hover {
+  transform: translateX(4px);
+}
+
+.bya-num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.78rem, 0.95vw, 0.88rem);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ff3b30;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.bya-question {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(1.8rem, 2.5vw, 2.7rem);
+  font-weight: 900;
+  line-height: 0.94;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+
+.bya-item:hover .bya-question {
+  color: #ff3b30;
+}
+
+.bya-answer {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ==========================================
+   11. SECTION 6: FOOTER & CONNECT (SEAMLESS BLACK PAGE)
+   ========================================== */
+.footer-page-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  padding: clamp(60px, 9vh, 96px) clamp(24px, 5vw, 72px) 0;
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border-top: none;
+}
+
+.footer-page-container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+/* Top Bar: Back to Top */
+.footer-top-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: clamp(36px, 6vh, 64px);
+}
+
+.footer-back-to-top {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.78rem, 0.95vw, 0.88rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ff3b30;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.footer-back-to-top:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+/* Main Middle Grid */
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+  margin-bottom: clamp(36px, 5vh, 60px);
+}
+
+/* Brand Column */
+.footer-col-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  margin-bottom: clamp(18px, 2.8vh, 28px);
+  width: fit-content;
+}
+
+.footer-logo-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ff3b30;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.footer-logo-name {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+}
+
+.footer-tagline {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: clamp(24px, 3.5vh, 36px);
+}
+
+.footer-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(16px, 2.2vw, 32px);
+}
+
+.footer-social-link {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.footer-social-link:hover {
+  color: #ff3b30;
+  transform: translateY(-2px);
+}
+
+/* Navigation Column */
+.footer-col-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 4vw, 56px);
+}
+
+.footer-nav-subcol {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.2vh, 22px);
+}
+
+.footer-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  width: fit-content;
+}
+
+.footer-nav-item:hover {
+  transform: translateX(4px);
+}
+
+.footer-nav-label {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(1.4rem, 1.9vw, 1.9rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  transition: color 0.2s ease;
+}
+
+.footer-nav-item:hover .footer-nav-label {
+  color: #ff3b30;
+}
+
+.footer-nav-num {
+  font-family: ui-monospace, monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ff3b30;
+  letter-spacing: 1px;
+}
+
+/* Copyright Row */
+.footer-copy-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: clamp(16px, 2.5vh, 32px);
+  z-index: 10;
+  position: relative;
+}
+
+.footer-copyright {
+  font-family: ui-monospace, monospace;
+  font-size: clamp(0.72rem, 0.85vw, 0.8rem);
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+}
+
+/* Giant Faint Upside-Down "DREAMING" Watermark across bottom */
+.footer-watermark-wrap {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  line-height: 0.72;
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-watermark-text {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(7.5rem, 20vw, 25rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.07); /* Faint light greyish watermark on pure black */
+  transform: scaleY(-1); /* Upside down, reads left-to-right */
+  white-space: nowrap;
+  display: block;
+  line-height: 0.72;
+  margin-bottom: -0.05em;
+}
+
+/* Responsive Breakpoints for Footer */
+@media (max-width: 900px) {
+  .footer-main-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footer-copy-row {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-col-nav {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ==========================================
+   10. RESPONSIVE BREAKPOINTS
+   ========================================== */
+@media (max-width: 900px) {
+  .hero-card {
+    height: calc(100vh - 24px);
+    min-height: 580px;
+    border-radius: 22px;
+  }
+
+  .title-mask--hello {
+    margin-left: 12px;
+  }
+
+  .hero-title {
+    font-size: clamp(3.8rem, 14vw, 7.5rem);
+  }
+
+  .hero-byline {
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+  }
+
+  .services-section {
+    min-height: auto;
+    padding: 60px 20px 80px;
+  }
+
+  .services-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .services-sticky-content {
+    position: static;
+    max-width: 100%;
+  }
+
+  .services-col--right {
+    padding-bottom: 40px;
+  }
+
+  .service-item {
+    font-size: clamp(2.4rem, 8vw, 3.8rem);
+    margin-bottom: 24px;
+  }
+
+  .bya-section {
+    padding: 80px 24px 100px;
+  }
+
+  .bya-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .bya-col--title {
+    position: static;
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-frame-wrapper {
+    padding: 10px;
+  }
+
+  .hero-card {
+    height: calc(100vh - 20px);
+    min-height: 520px;
+    border-radius: 18px;
+  }
+
+  .hero-composition {
+    padding: 20px 16px;
+  }
+
+  .title-mask--hello {
+    margin-left: 6px;
+  }
+
+  .hero-title {
+    font-size: clamp(3.2rem, 14vw, 5rem);
+  }
+
+  .hero-byline {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* ==========================================
+   9. CUSTOM ROUND WHITE CURSOR (ZERO TOP-LEFT GLITCH)
+   ========================================== */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 99999999;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.custom-cursor.is-active {
+  opacity: 1;
+}
+
+/* Cursor hidden completely while video plays */
+body.intro-active .custom-cursor {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Outer dot carries position ONLY */
+.cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Inner dot carries appearance & bounce scaling */
+.cursor-dot-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.85);
+  will-change: transform;
+}
+
+/* Click Bounce Animation on inner element */
+.cursor-dot-inner.is-bouncing {
+  animation: cursorBounce 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes cursorBounce {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(1.75);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+  85% {
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Trailing dots */
+.cursor-trail-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: #ffffff;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Hide native cursor on fine pointer desktop devices when intro is not active */
+@media (hover: hover) and (pointer: fine) {
+  body:not(.intro-active),
+  body:not(.intro-active) a,
+  body:not(.intro-active) button,
+  body:not(.intro-active) [role="button"],
+  body:not(.intro-active) input,
+  body:not(.intro-active) label {
+    cursor: none !important;
+  }
+}
+
+/* ==========================================
+   10. EASTER EGG: FLOATING BOUNCING CAMERA & FLASH
+   ========================================== */
+.floating-cam-widget {
+  position: fixed;
+  right: clamp(24px, 3.6vw, 48px);
+  bottom: clamp(100px, 24vh, 220px);
+  width: clamp(62px, 5.8vw, 86px);
+  height: clamp(62px, 5.8vw, 86px);
+  z-index: 9999990; /* Above regular content and flash overlay, below custom cursor */
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  animation: camFloatBounce 4.6s ease-in-out infinite;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.8s ease,
+              filter 0.3s ease;
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.75));
+  will-change: transform;
+}
+
+/* Hidden while intro video is playing */
+body.intro-active .floating-cam-widget {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(24px) scale(0.8);
+}
+
+/* Gentle organic floating and tilting bounce */
+@keyframes camFloatBounce {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-9px) rotate(-3.5deg) scale(1.02);
+  }
+  50% {
+    transform: translateY(-18px) rotate(1.5deg) scale(1.045);
+  }
+  75% {
+    transform: translateY(-7px) rotate(3deg) scale(1.015);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+}
+
+/* Inner wrapper handles hover scale, recoil kick, and prevents transform conflicts */
+.cam-inner-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.floating-cam-widget:hover .cam-inner-wrap {
+  transform: scale(1.14) rotate(-3deg);
+}
+
+.floating-cam-widget:active .cam-inner-wrap {
+  transform: scale(0.90) rotate(3deg);
+}
+
+/* Camera images stacked with pixel-perfect alignment */
+.cam-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  will-change: opacity, transform, filter;
+  transition: opacity 0.14s ease;
+}
+
+.cam-img--idle {
+  opacity: 1;
+}
+
+.cam-img--flash {
+  opacity: 0;
+  filter: drop-shadow(0 0 26px rgba(255, 255, 255, 1)) 
+          drop-shadow(0 0 60px rgba(255, 255, 255, 0.85));
+}
+
+/* Flashing shutter burst state */
+.floating-cam-widget.is-flashing .cam-inner-wrap {
+  animation: camShutterKick 0.52s cubic-bezier(0.18, 0.9, 0.25, 1) forwards;
+}
+
+.floating-cam-widget.is-flashing .cam-img--idle {
+  opacity: 0;
+}
+
+.floating-cam-widget.is-flashing .cam-img--flash {
+  opacity: 1;
+}
+
+@keyframes camShutterKick {
+  0% {
+    transform: scale(0.84) rotate(-8deg);
+  }
+  24% {
+    transform: scale(1.24) rotate(4deg);
+  }
+  55% {
+    transform: scale(1.06) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Full-Screen Pure White Flash Overlay */
+.camera-flash-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  pointer-events: none;
+  z-index: 9999998; /* Below cursor (99999999), covering entire screen */
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity;
+}
+
+.camera-flash-overlay.is-flashing {
+  visibility: visible;
+  animation: cameraFlashHoldAndFade 7.8s linear forwards;
+}
+
+@keyframes cameraFlashHoldAndFade {
+  0% {
+    opacity: 1;
+  }
+  /* Hold 100% solid bright white for ~1.3 seconds (16.6% of 7.8s) */
+  16.6% {
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  /* Then slowly, continuously, and smoothly fade out over the remaining 6.5s */
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Mobile responsive adjustments for the easter egg camera */
+@media (max-width: 600px) {
+  .floating-cam-widget {
+    right: 16px;
+    bottom: clamp(70px, 12vh, 110px);
+    width: 52px;
+    height: 52px;
+  }
+}

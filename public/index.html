@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ankush</title>
+
+  <!-- Primary SEO Meta Tags -->
+  <meta name="title" content="Ankush">
+  <meta name="description" content="Portfolio of Ankush — Computer Science Engineer, Full-Stack Developer, and Creator building intelligent systems and interactive web experiences.">
+  <meta name="keywords" content="Ankush, Portfolio, Full-Stack Developer, Software Engineer, Web Development, JavaScript, React, Node.js, AI/ML, Cadence Design Systems">
+  <meta name="author" content="Ankush">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ankush">
+  <meta property="og:description" content="Portfolio of Ankush — Computer Science Engineer, Full-Stack Developer, and Creator building intelligent systems and interactive web experiences.">
+  <meta property="og:image" content="bg.jpeg">
+  <meta property="og:site_name" content="Ankush">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ankush">
+  <meta name="twitter:description" content="Portfolio of Ankush — Computer Science Engineer, Full-Stack Developer, and Creator building intelligent systems and interactive web experiences.">
+  <meta name="twitter:image" content="bg.jpeg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ankush",
+    "email": "betaankush@gmail.com",
+    "jobTitle": "Full-Stack Developer & Software Engineer",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Jaypee University of Information Technology"
+    },
+    "knowsAbout": [
+      "Full-Stack Web Development",
+      "JavaScript",
+      "React",
+      "Node.js",
+      "Express.js",
+      "Python",
+      "C++",
+      "AI Workflows & Testing",
+      "Interactive UI Design"
+    ]
+  }
+  </script>
+  
+  <!-- Browser Tab Favicon: Bold White 'A' Icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000000'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Arial Black, Impact, sans-serif' font-weight='900' font-size='44' fill='%23ffffff'%3EA%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="/favicon.png?v=999">
+  <link rel="alternate icon" href="/favicon.ico?v=999">
+  
+  <!-- Google Fonts: Bebas Neue, Space Grotesk, and Caveat / Covered By Your Grace for handwritten quote -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;500;600;700&family=Covered+By+Your+Grace&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Preload Easter Egg Camera Assets -->
+  <link rel="preload" as="image" href="cam.png">
+  <link rel="preload" as="image" href="camflash.png">
+</head>
+<body class="intro-active">
+
+  <!-- 1. MANDATORY INTRO VIDEO (Direct Autoplay, Zero Click Prompt, Natural Aspect Ratio) -->
+  <div id="intro-loader">
+    <video 
+      id="intro-video" 
+      src="intro.mp4" 
+      autoplay 
+      playsinline 
+      preload="auto">
+    </video>
+  </div>
+
+  <!-- 2. MAIN PAGE WRAPPER -->
+  <main id="main-content">
+    
+    <!-- SECTION 1: HERO SECTION -->
+    <div class="hero-frame-wrapper" id="hero-section">
+      <section class="hero-card">
+        
+        <!-- LAYER 1: Background Photo -->
+        <img class="hero-layer hero-layer--bg" src="bg.jpeg" alt="Background">
+        <div class="hero-layer hero-layer--overlay"></div>
+
+        <!-- LAYER 2: Solid White Typography (Behind cutout) -->
+        <div class="hero-content hero-content--solid">
+          <!-- Top Navigation: ANKUSH with dot -->
+          <nav class="hero-nav">
+            <a href="#" class="hero-logo">
+              <span class="logo-dot"></span>
+              <span class="logo-name">ANKUSH</span>
+            </a>
+          </nav>
+
+          <!-- Text Composition -->
+          <div class="hero-composition">
+            <!-- Left Words: HELLO & MEET (Masked for pop-up entrance) -->
+            <div class="hero-col hero-col--left">
+              <div class="title-mask title-mask--hello">
+                <h1 class="hero-title hero-title--hello float-hello">HELLO</h1>
+              </div>
+              <div class="title-mask title-mask--meet">
+                <h1 class="hero-title hero-title--meet float-meet">MEET</h1>
+              </div>
+            </div>
+
+            <!-- Right Words: Byline & ANKUSH (Masked for pop-up entrance) -->
+            <div class="hero-col hero-col--right">
+              <div class="hero-right-spacer"></div>
+              <div class="hero-name-block float-name">
+                <p class="hero-byline" data-text="CREATOR / DEVELOPER / PHOTOGRAPHER"></p>
+                <div class="title-mask title-mask--name">
+                  <h1 class="hero-title hero-title--name">ANKUSH</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LAYER 3: Cutout Image (Layered in between solid text & outline text) -->
+        <img class="hero-layer hero-layer--cutout" src="abovebg.png" alt="Ankush Cutout">
+
+        <!-- LAYER 4: Outlined Typography (In FRONT of cutout — creates razor-thin hollow text over subject) -->
+        <div class="hero-content hero-content--outline" aria-hidden="true">
+          <div class="hero-composition">
+            <!-- Left Words (Hollow Outline Over Person, Floating in Sync) -->
+            <div class="hero-col hero-col--left">
+              <div class="title-mask title-mask--hello">
+                <h1 class="hero-title hero-title--hello float-hello">HELLO</h1>
+              </div>
+              <div class="title-mask title-mask--meet">
+                <h1 class="hero-title hero-title--meet float-meet">MEET</h1>
+              </div>
+            </div>
+
+            <!-- Right Words (Hollow Outline Over Person, Floating in Sync) -->
+            <div class="hero-col hero-col--right">
+              <div class="hero-right-spacer"></div>
+              <div class="hero-name-block float-name">
+                <p class="hero-byline" data-text="CREATOR / DEVELOPER / PHOTOGRAPHER"></p>
+                <div class="title-mask title-mask--name">
+                  <h1 class="hero-title hero-title--name">ANKUSH</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- SECTION 2: MINDSET & PHILOSOPHY (SEAMLESS BLACK PAGE) -->
+    <section class="mindset-section" id="section-next">
+      <div class="mindset-container">
+        <blockquote class="handwritten-block">
+          <p class="mindset-question">“And what will you build?</p>
+          <p class="mindset-p">A solution to a problem nobody bothered to solve. Something people can actually use. Something that makes you question how things worked before.</p>
+          <p class="mindset-p">Don't just learn the technology. Build with it. Break things. Experiment. Make it better.</p>
+          <p class="mindset-p">That's how you grow. That's how you make your mark.”</p>
+          <footer class="mindset-author">— A mindset I build by.</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTRO & SERVICES (TWO-COLUMN STICKY ROLLER SECTION) -->
+    <section class="services-section" id="section-services">
+      <div class="services-container">
+        
+        <!-- Left Side: Sticky Main Introduction -->
+        <div class="services-col services-col--left">
+          <div class="services-sticky-content">
+            <h2 class="services-headline">I'M YOUR PERSON TO TURN IDEAS INTO REALITY.</h2>
+            <div class="services-bio">
+              <p>I'm a Computer Science student who loves building things for the web, exploring AI, and solving problems through technology.</p>
+              <p>From interactive web applications to intelligent systems, I enjoy taking an idea from a blank screen to something functional. I experiment, learn fast, and believe the best way to understand technology is to build with it.</p>
+              <p>I don't just want to write code. I want to create things worth using.</p>
+            </div>
+            <a href="mailto:contact@ankush.dev" class="services-cta">[ LET'S BUILD SOMETHING ]</a>
+          </div>
+        </div>
+
+        <!-- Right Side: Scroll-Driven Fade & Blur Roller Words -->
+        <div class="services-col services-col--right">
+          <ul class="services-list" id="services-roller-list">
+            <li class="service-item">FULL-STACK DEVELOPMENT</li>
+            <li class="service-item">FRONTEND ENGINEERING</li>
+            <li class="service-item">BACKEND DEVELOPMENT</li>
+            <li class="service-item">ARTIFICIAL INTELLIGENCE</li>
+            <li class="service-item">MACHINE LEARNING</li>
+            <li class="service-item">CREATIVE PROBLEM SOLVING</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: PINNED PINBOARD SHOWCASE (WORK I'M SUPER PROUD OF.) -->
+    <section class="pinboard-track" id="section-projects">
+      <div class="pinboard-sticky-frame">
+        
+        <!-- Big Center Headline Fixed in Background -->
+        <div class="pinboard-headline-wrap">
+          <h2 class="pinboard-headline">WORK I'M SUPER<br>PROUD OF.</h2>
+        </div>
+
+        <!-- Overlapping Project Cards Collage Stage -->
+        <div class="pinboard-cards-stage" id="pinboard-stage">
+          
+          <!-- Template Card 1 -->
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="pin-card pin-card--1" data-index="0" data-target-rot="-4.5" aria-label="Project 1: Anatomy of a Murder">
+            <div class="pin-card-inner">
+              <div class="pin-card-top">
+                <span class="pin-card-tag">anatomy of a murder?</span>
+              </div>
+              <div class="pin-card-media pin-card-media--1">
+                <div class="pin-art-collage pin-art-collage--1">
+                  <div class="pin-cutout-shape pin-cutout-shape--retro">
+                    <span class="pin-cutout-knife">🗡️</span>
+                  </div>
+                </div>
+              </div>
+              <div class="pin-card-foot">
+                <span class="pin-card-title">EDITORIAL & NARRATIVE</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Template Card 2 -->
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="pin-card pin-card--2" data-index="1" data-target-rot="2.2" aria-label="Project 2: B2B Whimsy & Experiential">
+            <div class="pin-card-inner">
+              <div class="pin-card-top">
+                <span class="pin-card-tag">experiential marketing</span>
+              </div>
+              <div class="pin-card-media pin-card-media--2">
+                <div class="pin-art-collage pin-art-collage--2">
+                  <div class="pin-sticker-box">
+                    <p class="pin-sticker-text">bringing whimsy<br>and visitors to a<br>very B2B booth</p>
+                  </div>
+                </div>
+              </div>
+              <div class="pin-card-foot">
+                <span class="pin-card-title">INTERACTIVE CAMPAIGN</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Template Card 3 -->
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="pin-card pin-card--3" data-index="2" data-target-rot="-2.5" aria-label="Project 3: Product Hunt Tornado Campaign">
+            <div class="pin-card-inner">
+              <div class="pin-card-top">
+                <span class="pin-card-tag">product launch</span>
+              </div>
+              <div class="pin-card-media pin-card-media--3">
+                <div class="pin-art-collage pin-art-collage--3">
+                  <p class="pin-typewriter-text">my first full-<br>blown, last-minute<br>tornado campaign:<br>Product Hunt.</p>
+                  <div class="pin-folded-paper"></div>
+                </div>
+              </div>
+              <div class="pin-card-foot">
+                <span class="pin-card-title">GROWTH ENGINEERING</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Template Card 4 -->
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="pin-card pin-card--4" data-index="3" data-target-rot="3.8" aria-label="Project 4: Comic Strip Email Drip">
+            <div class="pin-card-inner">
+              <div class="pin-card-top">
+                <span class="pin-card-tag">copy & code</span>
+              </div>
+              <div class="pin-card-media pin-card-media--4">
+                <div class="pin-art-collage pin-art-collage--4">
+                  <p class="pin-typewriter-text">i snuck a comic<br>strip into an<br>email drip</p>
+                  <div class="pin-mini-avatar">🏛️💻</div>
+                </div>
+              </div>
+              <div class="pin-card-foot">
+                <span class="pin-card-title">CONTENT & AUTOMATION</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: BEFORE YOU ASK... (FAQ & PHILOSOPHY) -->
+    <section class="bya-section" id="section-bya">
+      <div class="bya-container">
+        
+        <!-- Column 1: Massive Red Stacked Headline -->
+        <div class="bya-col bya-col--title">
+          <h2 class="bya-headline">BEFORE<br>YOU<br>ASK...</h2>
+        </div>
+
+        <!-- Column 2: Items 01, 02, 03 -->
+        <div class="bya-col bya-col--qa">
+          
+          <article class="bya-item">
+            <span class="bya-num">01</span>
+            <h3 class="bya-question">WHAT ARE YOU CURRENTLY DOING?</h3>
+            <p class="bya-answer">Studying Computer Science Engineering at Jaypee University of Information Technology, while building projects and exploring new technologies.</p>
+          </article>
+
+          <article class="bya-item">
+            <span class="bya-num">02</span>
+            <h3 class="bya-question">WHAT DO YOU ENJOY BUILDING?</h3>
+            <p class="bya-answer">Web applications, intelligent systems, interactive interfaces and anything that solves an interesting problem.</p>
+          </article>
+
+          <article class="bya-item">
+            <span class="bya-num">03</span>
+            <h3 class="bya-question">WHAT'S YOUR TECH STACK?</h3>
+            <p class="bya-answer">React, JavaScript, HTML, CSS, Tailwind, Python, C++, MySQL and the technologies I'm currently exploring.</p>
+          </article>
+
+        </div>
+
+        <!-- Column 3: Items 04, 05, 06 -->
+        <div class="bya-col bya-col--qa">
+          
+          <article class="bya-item">
+            <span class="bya-num">04</span>
+            <h3 class="bya-question">HAVE YOU WORKED IN A PROFESSIONAL ENVIRONMENT?</h3>
+            <p class="bya-answer">Yes. I interned at Cadence Design Systems, working with the Product Validation team on validating an AI-powered chatbot and its supporting workflows.</p>
+          </article>
+
+          <article class="bya-item">
+            <span class="bya-num">05</span>
+            <h3 class="bya-question">WHAT MAKES YOU DIFFERENT?</h3>
+            <p class="bya-answer">Curiosity, consistency and the willingness to figure things out instead of waiting for someone to show me every step.</p>
+          </article>
+
+          <article class="bya-item">
+            <span class="bya-num">06</span>
+            <h3 class="bya-question">WHAT ARE YOU STILL LEARNING?</h3>
+            <p class="bya-answer">There's always something new. Currently exploring deeper full-stack development, AI/ML, system design and better ways to build scalable applications.</p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6: FOOTER & CONNECT (SEAMLESS BLACK PAGE) -->
+    <footer class="footer-page-section" id="section-contact">
+      <div class="footer-page-container">
+        
+        <!-- Top Right: Back to Top -->
+        <div class="footer-top-bar">
+          <a href="#hero-section" class="footer-back-to-top" id="back-to-top-btn">[ BACK TO TOP ]</a>
+        </div>
+
+        <!-- Main Middle Grid -->
+        <div class="footer-main-grid">
+          
+          <!-- Left Column: Ankush Brand, Conversation Note, Social Links -->
+          <div class="footer-col-brand">
+            <a href="#hero-section" class="footer-logo">
+              <span class="footer-logo-dot"></span>
+              <span class="footer-logo-name">ANKUSH</span>
+            </a>
+            <div class="footer-tagline">
+              <p>i'm even better in conversation.</p>
+              <p>say hi at</p>
+            </div>
+            <div class="footer-social-links">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-social-link">LINKEDIN</a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-social-link">GITHUB</a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="footer-social-link">TWITTER</a>
+              <a href="mailto:contact@ankush.dev" class="footer-social-link">MAIL</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-link">INSTAGRAM</a>
+            </div>
+          </div>
+
+          <!-- Right Column: 2-Column Useful Site Navigation -->
+          <nav class="footer-col-nav" aria-label="Footer navigation">
+            <div class="footer-nav-subcol">
+              <a href="#hero-section" class="footer-nav-item">
+                <span class="footer-nav-label">ABOUT</span>
+                <span class="footer-nav-num">01</span>
+              </a>
+              <a href="#section-next" class="footer-nav-item">
+                <span class="footer-nav-label">PHILOSOPHY</span>
+                <span class="footer-nav-num">02</span>
+              </a>
+              <a href="#section-services" class="footer-nav-item">
+                <span class="footer-nav-label">SERVICES</span>
+                <span class="footer-nav-num">03</span>
+              </a>
+            </div>
+
+            <div class="footer-nav-subcol">
+              <a href="#section-projects" class="footer-nav-item">
+                <span class="footer-nav-label">WORK</span>
+                <span class="footer-nav-num">04</span>
+              </a>
+              <a href="#section-bya" class="footer-nav-item">
+                <span class="footer-nav-label">FAQ</span>
+                <span class="footer-nav-num">05</span>
+              </a>
+              <a href="#section-contact" class="footer-nav-item">
+                <span class="footer-nav-label">CONTACT</span>
+                <span class="footer-nav-num">06</span>
+              </a>
+            </div>
+          </nav>
+
+        </div>
+
+        <!-- Copyright Row (Bottom Right) -->
+        <div class="footer-copy-row">
+          <span class="footer-copyright">© 2026 ANKUSH, ALL RIGHTS RESERVED.</span>
+        </div>
+
+      </div>
+
+      <!-- Giant Faint Upside-Down "DREAMING" Watermark at Bottom -->
+      <div class="footer-watermark-wrap" aria-hidden="true">
+        <span class="footer-watermark-text">DREAMING</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- EASTER EGG: FLOATING BOUNCING CAMERA & FULL-SCREEN FLASH -->
+  <div id="camera-flash-overlay" class="camera-flash-overlay" aria-hidden="true"></div>
+
+  <button id="floating-camera" class="floating-cam-widget" type="button" aria-label="Easter egg camera flash">
+    <div class="cam-inner-wrap">
+      <img src="cam.png" class="cam-img cam-img--idle" alt="Camera easter egg" draggable="false">
+      <img src="camflash.png" class="cam-img cam-img--flash" alt="Camera flash" draggable="false">
+    </div>
+  </button>
+
+  <script src="main.js"></script>
+</body>
+</html>
