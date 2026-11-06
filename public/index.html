@@ -72,8 +72,8 @@
 </head>
 <body class="intro-active">
 
-  <!-- 1. MANDATORY INTRO VIDEO (Direct Autoplay, Fullscreen Cover, Seamless Audio) -->
-  <div id="intro-loader" title="Click anywhere to toggle audio">
+  <!-- 1. MANDATORY INTRO VIDEO (Direct Autoplay, Fullscreen Cover, Sound ON by Default) -->
+  <div id="intro-loader">
     <video 
       id="intro-video" 
       src="intro.mp4" 
@@ -81,10 +81,6 @@
       playsinline 
       preload="auto">
     </video>
-    <button id="intro-sound-badge" class="intro-sound-badge" type="button" aria-label="Toggle sound">
-      <span class="sound-dot"></span>
-      <span class="sound-label">🔊 SOUND ON</span>
-    </button>
   </div>
 
   <!-- 2. MAIN PAGE WRAPPER -->

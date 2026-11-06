@@ -1,93 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
-  // 1. MANDATORY INTRO VIDEO (DIRECT AUTOPLAY & AUDIO CONTROLS)
+  // 1. MANDATORY INTRO VIDEO (SOUND ON BY DEFAULT)
   // ==========================================
   const loader = document.getElementById('intro-loader');
   const video = document.getElementById('intro-video');
-  const soundBadge = document.getElementById('intro-sound-badge');
 
   let isExited = false;
   let customCursorInitialized = false;
 
-  // Helper to update the sound indicator badge
-  function updateSoundBadge(unmuted) {
-    if (!soundBadge) return;
-    if (unmuted) {
-      soundBadge.classList.remove('is-muted');
-      soundBadge.innerHTML = '<span class="sound-dot"></span><span class="sound-label">🔊 SOUND ON</span>';
-      soundBadge.setAttribute('aria-label', 'Sound is ON. Click to mute');
-    } else {
-      soundBadge.classList.add('is-muted');
-      soundBadge.innerHTML = '<span class="sound-dot"></span><span class="sound-label">🔇 CLICK FOR SOUND</span>';
-      soundBadge.setAttribute('aria-label', 'Sound is muted. Click to turn sound on');
-    }
-  }
-
-  // Safe unmute handler triggered by user gesture
-  function unmuteIntroVideo() {
+  // Unmute function to guarantee sound is ON
+  function ensureSoundOn() {
     if (!video) return;
     video.muted = false;
     video.volume = 1.0;
-    updateSoundBadge(true);
     if (video.paused && !isExited && !video.ended) {
       video.play().catch(() => {});
     }
   }
 
-  // 1. Attempt direct unmuted audio playback on page load
+  // Set sound ON by default
   video.muted = false;
   video.volume = 1.0;
 
+  // Play immediately with sound ON
   const startPlay = video.play();
   if (startPlay !== undefined) {
-    startPlay
-      .then(() => {
-        // Direct unmuted playback succeeded
-        updateSoundBadge(true);
-      })
-      .catch((err) => {
-        // Strict browser autoplay policy blocked unmuted sound without prior user interaction.
-        // Fall back to muted playback so visual intro plays smoothly right away.
-        console.info('Unmuted autoplay prevented by browser policy, running muted with audio prompt:', err.message);
-        video.muted = true;
-        updateSoundBadge(false);
-        video.play().catch(() => {});
-      });
-  }
-
-  // 2. Click anywhere on the intro overlay to unmute (or toggle when clicking badge directly)
-  if (loader) {
-    loader.addEventListener('click', (e) => {
-      if (soundBadge && (e.target === soundBadge || soundBadge.contains(e.target))) {
-        if (video.muted) {
-          unmuteIntroVideo();
-        } else {
-          video.muted = true;
-          updateSoundBadge(false);
-        }
-        return;
-      }
-
-      // Clicking anywhere on the video screen unmuts if currently muted
-      if (video && video.muted) {
-        unmuteIntroVideo();
-      }
+    startPlay.catch((err) => {
+      // If browser strict autoplay policy restricts audio prior to a gesture,
+      // begin playback muted and immediately unmute on the earliest interaction
+      console.info('Browser policy deferred audio until user interaction:', err.message);
+      video.muted = true;
+      video.play().catch(() => {});
     });
   }
 
-  // Unmute on genuine user gestures (keyboard, tap, touch)
-  window.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape' && video && video.muted) {
-      unmuteIntroVideo();
-    }
-  }, { once: true });
-  window.addEventListener('touchstart', () => {
-    if (video && video.muted) {
-      unmuteIntroVideo();
-    }
-  }, { once: true, passive: true });
+  // Unmute immediately on any user gesture anywhere on screen
+  if (loader) {
+    loader.addEventListener('click', ensureSoundOn);
+  }
+  window.addEventListener('pointerdown', ensureSoundOn, { once: true });
+  window.addEventListener('keydown', ensureSoundOn, { once: true });
+  window.addEventListener('touchstart', ensureSoundOn, { once: true, passive: true });
 
-  // Guard: If browser unexpectedly pauses video while intro is active, resume immediately
+  // Guard: If browser pauses video while intro is active, resume immediately
   video.addEventListener('pause', () => {
     if (!isExited && !video.ended) {
       video.play().catch(() => {});

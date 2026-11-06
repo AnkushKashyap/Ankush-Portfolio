@@ -39,7 +39,7 @@ body.intro-active {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  cursor: pointer;
+  cursor: default;
   transition: opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1),
               visibility 0.8s ease;
 }
@@ -58,70 +58,7 @@ body.intro-active {
   object-position: center center;
   display: block;
   background-color: #000000;
-  pointer-events: none; /* Passes clicks directly to #intro-loader for instant unmuting */
-}
-
-/* Interactive sound toggle badge on intro screen */
-.intro-sound-badge {
-  position: absolute;
-  bottom: clamp(24px, 4vh, 48px);
-  right: clamp(24px, 4vw, 48px);
-  z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: #ffffff;
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(0.72rem, 1vw, 0.84rem);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 11px 20px;
-  border-radius: 9999px;
-  cursor: pointer;
-  pointer-events: auto;
-  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
-  user-select: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.intro-sound-badge:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: scale(1.05);
-}
-
-.intro-sound-badge .sound-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #34c759;
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.intro-sound-badge.is-muted {
-  border-color: rgba(255, 59, 48, 0.55);
-}
-
-.intro-sound-badge.is-muted .sound-dot {
-  background-color: #ff3b30;
-  animation: pulseMuteDot 1.4s ease-in-out infinite;
-}
-
-@keyframes pulseMuteDot {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.35;
-    transform: scale(0.8);
-  }
+  pointer-events: none;
 }
 
 #intro-loader.fade-out {
