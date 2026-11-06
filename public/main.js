@@ -1,44 +1,98 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
-  // 1. MANDATORY INTRO VIDEO (DIRECT AUTOPLAY)
+  // 1. MANDATORY INTRO VIDEO (DIRECT AUTOPLAY & AUDIO CONTROLS)
   // ==========================================
   const loader = document.getElementById('intro-loader');
   const video = document.getElementById('intro-video');
+  const soundBadge = document.getElementById('intro-sound-badge');
 
   let isExited = false;
   let customCursorInitialized = false;
 
-  // Attempt direct unmuted audio playback on page load
+  // Helper to update the sound indicator badge
+  function updateSoundBadge(unmuted) {
+    if (!soundBadge) return;
+    if (unmuted) {
+      soundBadge.classList.remove('is-muted');
+      soundBadge.innerHTML = '<span class="sound-dot"></span><span class="sound-label">🔊 SOUND ON</span>';
+      soundBadge.setAttribute('aria-label', 'Sound is ON. Click to mute');
+    } else {
+      soundBadge.classList.add('is-muted');
+      soundBadge.innerHTML = '<span class="sound-dot"></span><span class="sound-label">🔇 CLICK FOR SOUND</span>';
+      soundBadge.setAttribute('aria-label', 'Sound is muted. Click to turn sound on');
+    }
+  }
+
+  // Safe unmute handler triggered by user gesture
+  function unmuteIntroVideo() {
+    if (!video) return;
+    video.muted = false;
+    video.volume = 1.0;
+    updateSoundBadge(true);
+    if (video.paused && !isExited && !video.ended) {
+      video.play().catch(() => {});
+    }
+  }
+
+  // 1. Attempt direct unmuted audio playback on page load
   video.muted = false;
   video.volume = 1.0;
 
   const startPlay = video.play();
   if (startPlay !== undefined) {
-    startPlay.catch((err) => {
-      // If browser strict autoplay policy blocks audio without prior user gesture, fall back to muted
-      console.info('Unmuted autoplay blocked by browser policy, falling back to muted:', err.message);
-      video.muted = true;
-      video.play().catch(() => {});
+    startPlay
+      .then(() => {
+        // Direct unmuted playback succeeded
+        updateSoundBadge(true);
+      })
+      .catch((err) => {
+        // Strict browser autoplay policy blocked unmuted sound without prior user interaction.
+        // Fall back to muted playback so visual intro plays smoothly right away.
+        console.info('Unmuted autoplay prevented by browser policy, running muted with audio prompt:', err.message);
+        video.muted = true;
+        updateSoundBadge(false);
+        video.play().catch(() => {});
+      });
+  }
+
+  // 2. Click anywhere on the intro overlay to unmute (or toggle when clicking badge directly)
+  if (loader) {
+    loader.addEventListener('click', (e) => {
+      if (soundBadge && (e.target === soundBadge || soundBadge.contains(e.target))) {
+        if (video.muted) {
+          unmuteIntroVideo();
+        } else {
+          video.muted = true;
+          updateSoundBadge(false);
+        }
+        return;
+      }
+
+      // Clicking anywhere on the video screen unmuts if currently muted
+      if (video && video.muted) {
+        unmuteIntroVideo();
+      }
     });
   }
 
-  // Ensure immediate unmuting at full volume on the very first gesture (click, tap, keypress, scroll)
-  const unmuteOnFirstGesture = () => {
-    if (video) {
-      video.muted = false;
-      video.volume = 1.0;
+  // Unmute on genuine user gestures (keyboard, tap, touch)
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' && video && video.muted) {
+      unmuteIntroVideo();
     }
-  };
-  window.addEventListener('pointerdown', unmuteOnFirstGesture, { once: true });
-  window.addEventListener('keydown', unmuteOnFirstGesture, { once: true });
-  window.addEventListener('touchstart', unmuteOnFirstGesture, { once: true });
-  window.addEventListener('wheel', unmuteOnFirstGesture, { once: true });
-  window.addEventListener('pointermove', () => {
+  }, { once: true });
+  window.addEventListener('touchstart', () => {
     if (video && video.muted) {
-      video.muted = false;
-      video.volume = 1.0;
+      unmuteIntroVideo();
     }
   }, { once: true, passive: true });
+
+  // Guard: If browser unexpectedly pauses video while intro is active, resume immediately
+  video.addEventListener('pause', () => {
+    if (!isExited && !video.ended) {
+      video.play().catch(() => {});
+    }
+  });
 
   // Function called ONLY when video has completely finished playing
   function onVideoFinished() {
@@ -389,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 5. EASTER EGG: FLOATING BOUNCING CAMERA & FULL-SCREEN FLASH
+  // 5. EASTER EGG: FLOATING BOUNCING CAMERA & FULL-SCREEN FLASH WITH SHUTTER SOUND
   // ==========================================
   const camWidget = document.getElementById('floating-camera');
   const flashOverlay = document.getElementById('camera-flash-overlay');
@@ -397,20 +451,37 @@ document.addEventListener('DOMContentLoaded', () => {
   if (camWidget && flashOverlay) {
     let tCamRestore = null;
 
+    // Preload camera flash audio
+    const flashAudio = new Audio('flash.mp3');
+    flashAudio.preload = 'auto';
+
     camWidget.addEventListener('click', () => {
       if (tCamRestore) clearTimeout(tCamRestore);
 
-      // 1. Trigger camflash.png on camera widget
+      // 1. Play realistic shutter flash audio immediately on click
+      try {
+        flashAudio.currentTime = 0;
+        const playPromise = flashAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((err) => {
+            console.warn('Flash audio playback caught:', err);
+          });
+        }
+      } catch (e) {
+        console.warn('Flash audio error:', e);
+      }
+
+      // 2. Trigger camflash.png on camera widget
       camWidget.classList.remove('is-flashing');
       void camWidget.offsetWidth; // Force reflow
       camWidget.classList.add('is-flashing');
 
-      // 2. Trigger full-screen white flash: holds pure white for ~1.3s, then smoothly fades out over ~6.5s
+      // 3. Trigger full-screen white flash: holds pure white for ~1.3s, then smoothly fades out over ~6.5s
       flashOverlay.classList.remove('is-flashing');
       void flashOverlay.offsetWidth; // Force reflow to immediately restart animation on repeated clicks
       flashOverlay.classList.add('is-flashing');
 
-      // 3. Restore camera icon to cam.png behind the white flash (~600ms)
+      // 4. Restore camera icon to cam.png behind the white flash (~600ms)
       tCamRestore = setTimeout(() => {
         camWidget.classList.remove('is-flashing');
       }, 600);
